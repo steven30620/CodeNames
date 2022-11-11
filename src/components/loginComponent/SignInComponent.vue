@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="signIn">
     <section class="vh-100 gradient-custom">
       <div class="container py-5">
         <div class="row d-flex justify-content-center align-items-center">
@@ -41,8 +41,9 @@
                   <button
                     class="btn btn-outline-light btn-lg px-5"
                     type="submit"
+                    @click="goToGameConfig"
                   >
-                    Login
+                    Connection
                   </button>
                 </div>
 
@@ -65,6 +66,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: "SignInComponent",
   props: {},
@@ -72,23 +75,16 @@ export default {
     goToSignUp: function () {
       this.$emit("changeComponent", 1);
     },
+    goToGameConfig: function () {
+      window.scrollTo(0, 0);
+      router.push("/home");
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
 a {
   &:hover {
     cursor: pointer;

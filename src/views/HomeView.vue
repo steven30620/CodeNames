@@ -1,57 +1,53 @@
 <template>
-  <div class="home">
-    <img @click="home" alt="codeNamesLogo" src="../assets/logo.png" />
-    <SignInComponent
-      @changeComponent="changeComponent"
-      v-if="activeComponent == 0"
-    />
-    <SignUpComponent
-      @changeComponent="changeComponent"
-      v-if="activeComponent == 1"
-    ></SignUpComponent>
+  <div class="game">
+    <div class="container h-10 py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem">
+            <div class="card-body p-4 text-center">
+              <div class="mb-md-0 mt-md-0 pb-2">
+                <h2 class="fw-bold mb-4 text-uppercase">
+                  Que souhaitez-vous faire ?
+                </h2>
+
+                <button
+                  class="btn mb-4 btn-outline-light btn-lg px-5"
+                  type="submit"
+                  @click="goToGameConfig"
+                >
+                  Crée un salon
+                </button>
+                <button
+                  class="btn btn-outline-light btn-lg px-5 mb-4"
+                  type="submit"
+                >
+                  Rejoindre un salon
+                </button>
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">
+                  Modifier mon profil
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import SignInComponent from "@/components/loginComponent/SignInComponent.vue";
-import SignUpComponent from "@/components/loginComponent/SignUpComponent.vue";
 import router from "@/router";
 
 export default {
-  name: "HomeView",
-  components: {
-    SignInComponent,
-    SignUpComponent,
-  },
-  data() {
-    return {
-      activeComponent: 0,
-    };
-  },
+  name: "GameConfig",
+  props: {},
   methods: {
-    home: function () {
-      router.push("/");
-    },
-    changeComponent: function () {
-      console.log("ciiyci");
-      if (this.activeComponent == 0) {
-        this.activeComponent = 1;
-      } else {
-        this.activeComponent = 0;
-      }
+    goToGameConfig: function () {
+      router.push("/gameConfig");
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-img {
-  border-radius: 20%;
-  width: 200px;
-  object-fit: contain;
-  &:hover {
-    cursor: pointer;
-  }
-}
-</style>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss"></style>
