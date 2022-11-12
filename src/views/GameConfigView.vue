@@ -1,7 +1,7 @@
 <template>
   <div class="config">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+    <div class="row py-2 d-flex justify-content-center align-items-center">
+      <div class="col-11 col-md-8 col-lg-6 col-xl-5">
         <div class="card bg-dark text-white" style="border-radius: 1rem">
           <div class="card-body p-4 text-center">
             <div class="mb-md-0 mt-md-0 pb-2">
@@ -32,7 +32,7 @@
               </div>
               <button
                 @click="goToGame"
-                class="btn btn-outline-light btn-lg px-5"
+                class="btn col-10 btn-create btn-outline-light btn-lg px-5"
                 type="submit"
               >
                 Créer le salon d'espions !
@@ -57,7 +57,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.config {
-  margin-top: 50px;
+.btn {
+  &-create {
+  }
 }
 </style>

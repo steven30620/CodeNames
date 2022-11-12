@@ -4,6 +4,7 @@
       @changeComponent="changeComponent"
       v-if="activeComponent == 0"
     />
+
     <SignUpComponent
       @changeComponent="changeComponent"
       v-if="activeComponent == 1"
@@ -39,8 +40,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.home {
-  padding-top: 25px;
-}
-</style>
+<style lang="scss" scoped></style>

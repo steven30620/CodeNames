@@ -1,6 +1,6 @@
 <template>
   <div class="game">
-    <div class="container h-10 py-5">
+    <div class="container h-10 py-2">
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem">

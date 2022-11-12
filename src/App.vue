@@ -8,6 +8,7 @@
       src="./assets/logo.png"
     />
   </div>
+
   <router-view />
 </template>
 
@@ -49,17 +50,18 @@ html {
 
 .banner {
   height: 250px;
+  margin-bottom: 20px;
   &-img {
     object-fit: cover;
-    height: 200px;
+    height: 150px;
     width: 100%;
   }
   &-homeButton {
     border-radius: 20%;
-    width: 200px;
+    width: 150px;
     object-fit: contain;
     position: relative;
-    top: -130px;
+    top: -80px;
     z-index: 0;
     &:hover {
       cursor: pointer;
