@@ -35,7 +35,7 @@ export default createStore({
 			'Jade',
 			'Medecin',
 			'Jouet',
-			'Porte',
+			'Manege',
 			'Bureau',
 			'Miel',
 			'Chips',

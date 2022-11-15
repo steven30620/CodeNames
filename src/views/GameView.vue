@@ -7,8 +7,8 @@
         v-for="(word, index) in selectedWords"
         :key="index"
         class="game-card"
-        :class="'card' + (index + 1)"
-        @click="cardSelected(index + 1)"
+        :class="'card' + index"
+        @click="cardSelected(index, word)"
       >
         <div class="game-word-number">{{ index + 1 }}</div>
         <div class="game-word">{{ word }}</div>
@@ -53,7 +53,11 @@ export default {
       redWords: [],
       blueWords: [],
       whiteWords: [],
-      blackWord: "",
+      blackWord: [],
+      isRed: false,
+      isWhite: false,
+      isBlue: false,
+      isBlack: false,
     };
   },
   methods: {
@@ -66,11 +70,58 @@ export default {
         this.selectedWords.push(shuffledArray[i]);
         i++;
       }
+      this.generateAnswerGrid();
     },
-    cardSelected: function (index) {
-      this.selectedWords.splice(index, 1);
+    generateAnswerGrid: function () {
+      //pour reset les tableau si on veut générer une nouvelle grille de réponse
+      (this.redWords = []),
+        (this.blueWords = []),
+        (this.whiteWords = []),
+        (this.blackWord = []);
+      let Number = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24,
+      ];
+      //je melange un tableau qui me servira à prendre des mot aléatoire en évitant les doublons
+      let randomNumber = Number.sort(() => 0.5 - Math.random());
+      let i = 0;
+      while (this.redWords.length < 9) {
+        this.redWords.push(this.selectedWords[randomNumber[i]]);
+        i++;
+      }
 
-      console.log(index.word);
+      while (this.blueWords.length < 8) {
+        this.blueWords.push(this.selectedWords[randomNumber[i]]);
+        i++;
+      }
+
+      while (this.whiteWords.length < 7) {
+        this.whiteWords.push(this.selectedWords[randomNumber[i]]);
+        i++;
+      }
+      this.blackWord.push(this.selectedWords[randomNumber[i]]);
+      console.log(this.selectedWords);
+    },
+    cardSelected: function (index, word) {
+      //on récupère l'index et le mot en paramètre pour le comparer au tableaux de réponses
+      let selectedCard = document.getElementsByClassName("card" + index);
+
+      if (this.whiteWords.find((Element) => Element == word) == word) {
+        selectedCard[0].classList.add("isWhite");
+
+        console.log(word + " est un mot blanc");
+      }
+      if (this.redWords.find((Element) => Element == word) == word) {
+        selectedCard[0].classList.add("isRed");
+      }
+      if (this.blueWords.find((Element) => Element == word) == word) {
+        selectedCard[0].classList.add("isBlue");
+
+        console.log(word + "  un mot bleu");
+      }
+      if (this.blackWord.find((Element) => Element == word) == word) {
+        selectedCard[0].classList.add("isBlack");
+      }
     },
   },
   beforeMount() {
@@ -94,7 +145,7 @@ export default {
     grid-template-rows: repeat(5);
   }
   &-card {
-    background-image: url("../assets/carteBlanche.jpg");
+    background-image: url("../assets/cartes/carteBlanche.jpg");
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
@@ -123,5 +174,22 @@ export default {
     margin-top: 40px;
     width: 80%;
   }
+}
+
+.isRed {
+  background-image: url("../assets/cartes/codeRouge.PNG");
+  z-index: 1;
+}
+.isBlue {
+  background-image: url("../assets/cartes/codeBleu.PNG");
+  z-index: 1;
+}
+.isBlack {
+  background-image: url("../assets/cartes/codeNoir2.PNG");
+  color: transparent;
+}
+.isWhite {
+  background-image: url("../assets/cartes/carteBlancheCivile2.png");
+  color: transparent;
 }
 </style>
