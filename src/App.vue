@@ -8,7 +8,6 @@
       src="./assets/logo.png"
     />
   </div>
-
   <router-view />
 </template>
 

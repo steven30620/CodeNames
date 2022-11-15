@@ -7,11 +7,21 @@
         v-for="(word, index) in selectedWords"
         :key="index"
         class="game-card"
-        :class="'card' + index"
+        :class="setColor(word)"
         @click="cardSelected(index, word)"
       >
         <div class="game-word-number">{{ index + 1 }}</div>
         <div class="game-word">{{ word }}</div>
+      </div>
+    </div>
+    <div class="game-gessGrid">
+      <div
+        class="game-gessGrid-square"
+        v-for="(word, index) in selectedWords"
+        :key="index"
+        :class="setColorForGrid(word)"
+      >
+        <div class="game-word-number">{{ index + 1 }}</div>
       </div>
     </div>
     <div class="game-chat">
@@ -102,6 +112,42 @@ export default {
       this.blackWord.push(this.selectedWords[randomNumber[i]]);
       console.log(this.selectedWords);
     },
+    setColor: function (word) {
+      if (this.redWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + " est rouge");
+        return "isRed";
+      }
+      if (this.blueWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + "  est bleu");
+        return "isBlue";
+      }
+      if (this.whiteWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + " est blanc");
+        return "isWhite";
+      }
+      if (this.blackWord.find((Element) => Element == word) !== undefined) {
+        console.log(word + "  est noir");
+        return "isBlack";
+      }
+    },
+    setColorForGrid: function (word) {
+      if (this.redWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + " est rouge");
+        return "isRedGrid";
+      }
+      if (this.blueWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + "  est bleu");
+        return "isBlueGrid";
+      }
+      if (this.whiteWords.find((Element) => Element == word) !== undefined) {
+        console.log(word + " est blanc");
+        return "isWhiteGrid";
+      }
+      if (this.blackWord.find((Element) => Element == word) !== undefined) {
+        console.log(word + "  est noir");
+        return "isBlackGrid";
+      }
+    },
     cardSelected: function (index, word) {
       //on récupère l'index et le mot en paramètre pour le comparer au tableaux de réponses
       let selectedCard = document.getElementsByClassName("card" + index);
@@ -174,6 +220,22 @@ export default {
     margin-top: 40px;
     width: 80%;
   }
+  &-gessGrid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 200px;
+    border: solid 10px black;
+    border-inline-style: grey;
+    border-radius: 10px;
+    background: rgb(8, 8, 8);
+    &-square {
+      border-radius: 8px;
+      width: 20%;
+      height: 20%;
+      border: solid 1px black;
+    }
+  }
 }
 
 .isRed {
@@ -191,5 +253,20 @@ export default {
 .isWhite {
   background-image: url("../assets/cartes/carteBlancheCivile2.png");
   color: transparent;
+}
+.isRedGrid {
+  background-color: #ea5f22;
+}
+.isBlueGrid {
+  background-color: #10bed3;
+  object-fit: cover;
+}
+.isBlackGrid {
+  background-color: black;
+  object-fit: cover;
+}
+.isWhiteGrid {
+  background-color: #dfcfcc;
+  object-fit: cover;
 }
 </style>
