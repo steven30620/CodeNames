@@ -1,8 +1,15 @@
 <template>
   <div class="game">
-    le jeu
+    Au tour de l'espion Rouge de jouer !
+    <button @click="getRandomWord">Start</button>
     <div class="game-grid col-10">
-      <div v-for="(word, index) in words" :key="index" class="game-card">
+      <div
+        v-for="(word, index) in selectedWords"
+        :key="index"
+        class="game-card"
+        :class="'card' + (index + 1)"
+        @click="cardSelected(index + 1)"
+      >
         <div class="game-word-number">{{ index + 1 }}</div>
         <div class="game-word">{{ word }}</div>
       </div>
@@ -42,12 +49,28 @@ export default {
   data() {
     return {
       displayChat: false,
-      words: [],
+      selectedWords: [],
+      redWords: [],
+      blueWords: [],
+      whiteWords: [],
+      blackWord: "",
     };
   },
   methods: {
     getRandomWord: function () {
-      this.words = this.$store.state.words;
+      this.selectedWords = [];
+      let words = this.$store.state.words;
+      const shuffledArray = words.sort(() => 0.5 - Math.random());
+      let i = 0;
+      while (this.selectedWords.length < 25) {
+        this.selectedWords.push(shuffledArray[i]);
+        i++;
+      }
+    },
+    cardSelected: function (index) {
+      this.selectedWords.splice(index, 1);
+
+      console.log(index.word);
     },
   },
   beforeMount() {
@@ -82,6 +105,11 @@ export default {
     border: 1px solid rgb(206, 203, 191);
     border-radius: 8px;
     font-size: 15px;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      transition: 0.2s;
+    }
   }
   &-word {
     position: relative;
