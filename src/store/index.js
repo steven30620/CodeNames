@@ -1,14 +1,37 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+	state: {
+		words: [
+			'Banane',
+			'Biere',
+			'Ananas',
+			'Fort',
+			'Pieuvre',
+			'Marteau',
+			'Porte',
+			'Jus',
+			'Palier',
+			'Tele',
+			'Jeux',
+			'Casque',
+			'Verre',
+			'Tasse',
+			'Lumiere',
+			'Terre',
+			'Soleil',
+			'Toit',
+			'Famille',
+			'Trousse',
+			'Bain',
+			'Eau',
+			'Arbre',
+			'Chasse',
+			'Voiture',
+		],
+	},
+	getters: {},
+	mutations: {},
+	actions: {},
+	modules: {},
+});

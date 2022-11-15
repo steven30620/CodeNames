@@ -1,107 +1,10 @@
 <template>
   <div class="game">
     le jeu
-
     <div class="game-grid col-10">
-      <div class="game-card">
-        <div class="game-word-number">1</div>
-        <div class="game-word">Banane</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">2</div>
-        <div class="game-word">biere</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">3</div>
-        <div class="game-word">ananas</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">4</div>
-        <div class="game-word">fort</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">5</div>
-        <div class="game-word">pieuvre</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">6</div>
-        <div class="game-word">marteau</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">7</div>
-        <div class="game-word">porte</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">8</div>
-        <div class="game-word">jus</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">9</div>
-        <div class="game-word">palier</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">10</div>
-        <div class="game-word">tele</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">11</div>
-        <div class="game-word">jeux</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">12</div>
-        <div class="game-word">casque</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">13</div>
-        <div class="game-word">verre</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">14</div>
-        <div class="game-word">tasse</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">15</div>
-        <div class="game-word">lumiere</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">16</div>
-        <div class="game-word">terre</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">17</div>
-        <div class="game-word">soleil</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">18</div>
-        <div class="game-word">toit</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">19</div>
-        <div class="game-word">famille</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">20</div>
-        <div class="game-word">trousse</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">21</div>
-        <div class="game-word">bain</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">22</div>
-        <div class="game-word">eau</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">23</div>
-        <div class="game-word">arbre</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">24</div>
-        <div class="game-word">chasse</div>
-      </div>
-      <div class="game-card">
-        <div class="game-word-number">25</div>
-        <div class="game-word">voiture</div>
+      <div v-for="(word, index) in words" :key="index" class="game-card">
+        <div class="game-word-number">{{ index + 1 }}</div>
+        <div class="game-word">{{ word }}</div>
       </div>
     </div>
     <div class="game-chat">
@@ -128,6 +31,7 @@
 
 <script>
 import ChatComponent from "@/components/game/ChatComponent.vue";
+
 import "animate.css";
 
 export default {
@@ -138,7 +42,16 @@ export default {
   data() {
     return {
       displayChat: false,
+      words: [],
     };
+  },
+  methods: {
+    getRandomWord: function () {
+      this.words = this.$store.state.words;
+    },
+  },
+  beforeMount() {
+    this.getRandomWord();
   },
 };
 </script>

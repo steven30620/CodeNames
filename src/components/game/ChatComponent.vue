@@ -16,6 +16,7 @@
         </div>
         coucou
       </div>
+
       <div class="chat-message">
         <div class="chat-message-user">
           <div class="chat-message-user">
@@ -28,147 +29,7 @@
             <div class="chat-message-user-name">Steven:</div>
           </div>
         </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
-      </div>
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        coucou
+        aurevoir
       </div>
     </div>
     <div class="chat-message-input">
@@ -179,7 +40,7 @@
         id="chatBox"
         placeholder="Parlez à vos partenaire"
       /><button class="chat-input-send-btn">
-        <img src="../../assets/arrowSend.jpg" />
+        <img class="chat-input-send-btn-img" src="../../assets/arrowSend.jpg" />
       </button>
     </div>
   </div>
@@ -208,7 +69,7 @@ export default {
   &-display {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
   &-message {
     display: flex;
@@ -230,6 +91,9 @@ export default {
   }
   &-input {
     width: 100%;
+    &-send-btn-img {
+      width: 30px;
+    }
   }
 }
 </style>
