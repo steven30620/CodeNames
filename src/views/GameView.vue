@@ -6,9 +6,8 @@
       <div
         v-for="(word, index) in selectedWords"
         :key="index"
-        class="game-card"
-        :class="setColor(word)"
-        @click="cardSelected(index, word)"
+        :class="'game-card card' + index"
+        @click="setColor(word, index)"
       >
         <div class="game-word-number">{{ index + 1 }}</div>
         <div class="game-word">{{ word }}</div>
@@ -21,7 +20,7 @@
         :key="index"
         :class="setColorForGrid(word)"
       >
-        <div class="game-word-number">{{ index + 1 }}</div>
+        <div class="game-gessGrid-number">{{ index + 1 }}</div>
       </div>
     </div>
     <div class="game-chat">
@@ -73,6 +72,7 @@ export default {
   methods: {
     getRandomWord: function () {
       this.selectedWords = [];
+
       let words = this.$store.state.words;
       const shuffledArray = words.sort(() => 0.5 - Math.random());
       let i = 0;
@@ -112,61 +112,36 @@ export default {
       this.blackWord.push(this.selectedWords[randomNumber[i]]);
       console.log(this.selectedWords);
     },
-    setColor: function (word) {
+
+    // je compare le mot choisi au tableau rouge bleu et  blanc
+    setColor: function (word, index) {
+      let card = document.getElementsByClassName("card" + index);
+
       if (this.redWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + " est rouge");
-        return "isRed";
+        card[0].classList.add("isRed");
       }
       if (this.blueWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + "  est bleu");
-        return "isBlue";
+        card[0].classList.add("isBlue");
       }
       if (this.whiteWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + " est blanc");
-        return "isWhite";
+        card[0].classList.add("isWhite");
       }
       if (this.blackWord.find((Element) => Element == word) !== undefined) {
-        console.log(word + "  est noir");
-        return "isBlack";
+        card[0].classList.add("isBlack");
       }
     },
     setColorForGrid: function (word) {
       if (this.redWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + " est rouge");
         return "isRedGrid";
       }
       if (this.blueWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + "  est bleu");
         return "isBlueGrid";
       }
       if (this.whiteWords.find((Element) => Element == word) !== undefined) {
-        console.log(word + " est blanc");
         return "isWhiteGrid";
       }
       if (this.blackWord.find((Element) => Element == word) !== undefined) {
-        console.log(word + "  est noir");
         return "isBlackGrid";
-      }
-    },
-    cardSelected: function (index, word) {
-      //on récupère l'index et le mot en paramètre pour le comparer au tableaux de réponses
-      let selectedCard = document.getElementsByClassName("card" + index);
-
-      if (this.whiteWords.find((Element) => Element == word) == word) {
-        selectedCard[0].classList.add("isWhite");
-
-        console.log(word + " est un mot blanc");
-      }
-      if (this.redWords.find((Element) => Element == word) == word) {
-        selectedCard[0].classList.add("isRed");
-      }
-      if (this.blueWords.find((Element) => Element == word) == word) {
-        selectedCard[0].classList.add("isBlue");
-
-        console.log(word + "  un mot bleu");
-      }
-      if (this.blackWord.find((Element) => Element == word) == word) {
-        selectedCard[0].classList.add("isBlack");
       }
     },
   },
@@ -269,4 +244,17 @@ export default {
   background-color: #dfcfcc;
   object-fit: cover;
 }
+
+@media all and (max-width: 1052px) {
+  .game-card {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+@media all and (max-width: 512px) {
+  .game-card {
+    font-size: 12px;
+  }
+} ;
 </style>
