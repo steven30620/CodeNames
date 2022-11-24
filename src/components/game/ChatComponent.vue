@@ -1,7 +1,12 @@
 <template>
   <div class="chat">
     <div class="chat-message"></div>
-    <div class="chat-display">
+    <div
+      class="chat-display"
+      v-for="(message, index) in messages"
+      :key="index"
+      index
+    >
       <div class="chat-message">
         <div class="chat-message-user">
           <div class="chat-message-user">
@@ -11,26 +16,22 @@
                 src="../../assets/spy.png"
               />
             </div>
-            <div class="chat-message-user-name">Steven:</div>
+            <div class="chat-message-user-name">{{ message.user }}:</div>
           </div>
         </div>
-        coucou
+        {{ message.text }}
       </div>
-
-      <div class="chat-message">
-        <div class="chat-message-user">
-          <div class="chat-message-user">
-            <div class="chat-message-user-placeholder-img">
-              <img
-                class="chat-message-user-placeholder-img"
-                src="../../assets/spy.png"
-              />
-            </div>
-            <div class="chat-message-user-name">Steven:</div>
-          </div>
-        </div>
-        aurevoir
-      </div>
+    </div>
+    <div class="testUser">
+      <input
+        type="text"
+        name="chatBox"
+        class="chat-input"
+        id="chatBox"
+        placeholder="pseudo"
+        @keyup.enter="sendMessage"
+        v-model="currentUser"
+      />
     </div>
     <div class="chat-message-input">
       <input
@@ -39,7 +40,9 @@
         class="chat-input"
         id="chatBox"
         placeholder="Parlez à vos partenaire"
-      /><button class="chat-input-send-btn">
+        @keyup.enter="sendMessage"
+        v-model="messageInput"
+      /><button @click="sendMessage" class="chat-input-send-btn">
         <img class="chat-input-send-btn-img" src="../../assets/arrowSend.jpg" />
       </button>
     </div>
@@ -47,13 +50,38 @@
 </template>
 
 <script>
+import io from "socket.io-client";
 export default {
   name: "ChatComponent",
   components: {},
+  props: { joined: Boolean },
   data() {
-    return {};
+    return {
+      currentUser: "",
+      messageInput: "",
+      messages: [],
+    };
   },
-  methods: {},
+  methods: {
+    join: function () {
+      this.socketInstance = io("http://localhost:3000");
+
+      this.socketInstance.on("message:received", (data) => {
+        this.messages = this.messages.concat(data);
+      });
+    },
+    sendMessage: function () {
+      let message = {
+        user: this.currentUser,
+        text: this.messageInput,
+      };
+      this.messages = this.messages.concat(message);
+
+      this.socketInstance.emit("message", message);
+      this.messageInput = "";
+    },
+  },
+  beforeMount() {},
 };
 </script>
 
@@ -62,8 +90,8 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  width: 100%;
   height: 400px;
+  min-width: 400px;
   background-color: red;
   justify-content: flex-end;
   &-display {
