@@ -1,7 +1,7 @@
 <template>
   <div class="game-zone">
     <GameComponent></GameComponent>
-    <div class="container" v-html="testo"></div>
+    <div class="container"></div>
     <div class="chatZone">
       <div class="chat">
         <button
@@ -34,7 +34,7 @@
 <script>
 // import axios from "axios";
 import GameComponent from "../components/game/GameComponent";
-import ChatComponent from "../components/game/ChatComponent.vue";
+import ChatComponent from "../components/game/ChatComponent";
 import "animate.css";
 
 export default {

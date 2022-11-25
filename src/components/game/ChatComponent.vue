@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import io from "socket.io-client";
 export default {
   name: "ChatComponent",
   components: {},
@@ -63,25 +62,33 @@ export default {
     };
   },
   methods: {
-    join: function () {
-      this.socketInstance = io("http://localhost:3000");
-
-      this.socketInstance.on("message:received", (data) => {
-        this.messages = this.messages.concat(data);
-      });
-    },
     sendMessage: function () {
       let message = {
         user: this.currentUser,
         text: this.messageInput,
       };
+
       this.messages = this.messages.concat(message);
 
-      this.socketInstance.emit("message", message);
+      this.$socket.emit("message", message);
       this.messageInput = "";
     },
   },
-  beforeMount() {},
+  sockets: {
+    test: function () {
+      console.log("j'ai recu");
+    },
+    onMessage: function (data) {
+      this.messages = this.messages.concat(data);
+    },
+    customEmit: function () {
+      console.log(
+        'this method was fired by the socket server. eg: io.emit("customEmit", data)'
+      );
+    },
+  },
+
+  watch() {},
 };
 </script>
 

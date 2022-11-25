@@ -13,13 +13,14 @@
                 <button
                   class="btn mb-4 btn-outline-light btn-lg px-5"
                   type="submit"
-                  @click="goToGameConfig"
+                  disabled
                 >
                   Crée un salon
                 </button>
                 <button
                   class="btn btn-outline-light btn-lg px-5 mb-4"
                   type="submit"
+                  @click="goToGameSalon"
                 >
                   Rejoindre un salon
                 </button>
@@ -42,8 +43,8 @@ export default {
   name: "GameConfig",
   props: {},
   methods: {
-    goToGameConfig: function () {
-      router.push("/gameConfig");
+    goToGameSalon: function () {
+      router.push("/Salon");
     },
   },
 };

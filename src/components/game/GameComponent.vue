@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import wordsList from "@/assets/words/words";
+
 export default {
   name: "GameComponent",
   props: {},
@@ -51,7 +53,7 @@ export default {
     getRandomWord: function () {
       this.selectedWords = [];
 
-      let words = this.$store.state.words;
+      let words = wordsList;
       const shuffledArray = words.sort(() => 0.5 - Math.random());
       let i = 0;
       while (this.selectedWords.length < 25) {
