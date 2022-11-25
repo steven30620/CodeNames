@@ -1,6 +1,6 @@
 <template>
   <div class="game">
-    <div class="container h-10 py-2">
+    <div class="container h-10 py-2" v-if="!displaySalon">
       <div class="row d-flex justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem">
@@ -33,18 +33,27 @@
         </div>
       </div>
     </div>
+    <div class="salon-component" v-if="displaySalon">
+      <SalonComponent></SalonComponent>
+    </div>
   </div>
 </template>
 
 <script>
-import router from "@/router";
+import SalonComponent from "@/components/home/SalonComponent.vue";
 
 export default {
   name: "GameConfig",
+  components: { SalonComponent },
   props: {},
+  data() {
+    return {
+      displaySalon: false,
+    };
+  },
   methods: {
     goToGameSalon: function () {
-      router.push("/Salon");
+      this.displaySalon = true;
     },
   },
 };

@@ -1,12 +1,6 @@
 <template>
   <div class="chat">
-    <div class="chat-message"></div>
-    <div
-      class="chat-display"
-      v-for="(message, index) in messages"
-      :key="index"
-      index
-    >
+    <div class="chat-display" v-for="(message, index) in messages" :key="index">
       <div class="chat-message">
         <div class="chat-message-user">
           <div class="chat-message-user">
@@ -53,7 +47,7 @@
 export default {
   name: "ChatComponent",
   components: {},
-  props: { joined: Boolean },
+  props: {},
   data() {
     return {
       currentUser: "",
@@ -81,11 +75,6 @@ export default {
     onMessage: function (data) {
       this.messages = this.messages.concat(data);
     },
-    customEmit: function () {
-      console.log(
-        'this method was fired by the socket server. eg: io.emit("customEmit", data)'
-      );
-    },
   },
 
   watch() {},
@@ -102,9 +91,9 @@ export default {
   background-color: red;
   justify-content: flex-end;
   &-display {
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
   }
   &-message {
     display: flex;

@@ -9,7 +9,7 @@
                 <div class="mb-md-2 mt-md-4 pb-5">
                   <h2 class="fw-bold mb-2 text-uppercase">Connection</h2>
                   <p class="text-white-50 mb-5">
-                    Entrez votre mail et votre Email !
+                    Entrez votre pseudo d'espion !
                   </p>
 
                   <div class="form-outline form-white mb-4">
@@ -17,12 +17,21 @@
                       type="email"
                       id="typeEmailX"
                       class="form-control form-control-lg"
-                      placeholder="James@bond.OSS"
+                      placeholder="James Hunt"
+                      v-model="userName"
                     />
-                    <label class="form-label" for="typeEmailX">Email</label>
+                    <label class="form-label" for="typeEmailX">Pseudo</label>
                   </div>
-
-                  <div class="form-outline form-white">
+                  <div class="isAdminCheckbox">
+                    <label for="admin">Espion en chef ?</label>
+                    <input
+                      type="checkbox"
+                      id="admin"
+                      class="isAdminCheckbox-box"
+                      v-model="isAdmin"
+                    />
+                  </div>
+                  <!-- <div class="form-outline form-white">
                     <input
                       type="password"
                       id="typePasswordX"
@@ -36,7 +45,7 @@
 
                   <p class="small mb-5 pb-lg-2">
                     <a class="text-white-50" href="#!">Mot de passe oublié ?</a>
-                  </p>
+                  </p> -->
 
                   <button
                     class="btn btn-outline-light btn-lg px-5"
@@ -47,7 +56,7 @@
                   </button>
                 </div>
 
-                <div>
+                <!-- <div>
                   <p class="mb-0">
                     Vous n'avez pas de compte ?
 
@@ -55,7 +64,7 @@
                       >Inscription</a
                     >
                   </p>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -71,12 +80,20 @@ import router from "@/router";
 export default {
   name: "SignInComponent",
   props: {},
+  data() {
+    return {
+      userName: "",
+      isAdmin: "",
+    };
+  },
   methods: {
     goToSignUp: function () {
       this.$emit("changeComponent", 1);
     },
     goToGameConfig: function () {
       window.scrollTo(0, 0);
+      localStorage.setItem("user", this.userName);
+      localStorage.setItem("isAdmin", this.isAdmin);
       router.push("/home");
     },
   },
@@ -88,6 +105,15 @@ export default {
 a {
   &:hover {
     cursor: pointer;
+  }
+}
+
+.isAdminCheckbox {
+  display: flex;
+  justify-content: center;
+  &-box {
+    margin-left: 10px;
+    margin-top: 4px;
   }
 }
 </style>

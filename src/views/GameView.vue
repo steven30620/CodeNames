@@ -20,11 +20,7 @@
           enter-active-class="animated animate__backInLeft  animate__faster	 "
           leave-active-class="animated animate__backOutRight animate__faster	 "
         >
-          <ChatComponent
-            :joined="isConnected"
-            v-if="displayChat"
-            id="chat"
-          ></ChatComponent>
+          <ChatComponent v-if="displayChat" id="chat"></ChatComponent>
         </transition>
       </div>
     </div>
@@ -47,7 +43,7 @@ export default {
   data() {
     return {
       testo: "",
-      isConnected: false,
+
       displayChat: false,
     };
   },
@@ -56,9 +52,7 @@ export default {
       this.displayChat = !this.displayChat;
     },
   },
-  beforeMount() {
-    this.isConnected = true;
-  },
+  beforeMount() {},
 };
 </script>
 

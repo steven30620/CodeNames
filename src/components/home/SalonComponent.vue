@@ -6,16 +6,18 @@
         style="border-radius: 1rem"
       >
         <div class="card-title">Liste d'espions connecté(e)s</div>
-        <div class="player-connected col-12">
-          <div class="user-pseudo col-5">Espion SteVen</div>
-          <div class="user-pseudo col-5">Espion stapha</div>
-          <div class="user-pseudo col-5">Espion aluxis</div>
-          <div class="user-pseudo col-5">Espion jaki</div>
-          <div class="user-pseudo col-5">Espion anglus</div>
-          <div class="user-pseudo col-5">Espion valinos</div>
-          <div class="user-pseudo col-5">Espion thelos</div>
+        <div class="player-display">
+          <div
+            class="player-connected"
+            v-for="(player, index) in players"
+            :key="index"
+          >
+            <div class="user-pseudo col-5">{{ player }}</div>
+          </div>
         </div>
-        <div class="player-number">5 sur 8 joueurs connecté(e)s</div>
+        <div class="player-number">
+          {{ players.length }} joueurs connecté(e)s
+        </div>
       </div>
     </div>
     <div class="adminArea">
@@ -31,13 +33,33 @@
 </template>
 
 <script>
-import router from "../router";
+import router from "@/router";
 export default {
-  name: "SalonComponent",
+  name: "SalonView",
+  data() {
+    return {
+      players: [],
+    };
+  },
   methods: {
     goToGame: function () {
       router.push("/game");
     },
+    joined: function () {
+      let localUserName = localStorage.getItem("user");
+      this.players = this.players.concat(localUserName);
+      this.$socket.emit("addNewUser", localUserName);
+    },
+  },
+  sockets: {
+    displayUser: function (data) {
+      console.log("display user     " + data);
+      this.players = data;
+      console.log("je repasse dans le fornt");
+    },
+  },
+  beforeMount() {
+    this.joined();
   },
 };
 </script>
@@ -74,9 +96,15 @@ export default {
     position: relative;
     top: 25px;
   }
+  &-display {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
   &-connected {
     display: flex;
-    flex-wrap: wrap;
+    min-width: 50%;
     justify-content: center;
   }
 }

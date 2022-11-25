@@ -3,7 +3,6 @@ import SignInView from '../views/SignInView.vue';
 import HomeView from '../views/HomeView.vue';
 import GameConfigView from '../views/GameConfigView';
 import GameView from '../views/GameView';
-import SalonView from '../views/SalonView';
 
 const routes = [
 	{
@@ -25,11 +24,6 @@ const routes = [
 		path: '/Game',
 		name: 'GameView',
 		component: GameView,
-	},
-	{
-		path: '/Salon',
-		name: 'SalonView',
-		component: SalonView,
 	},
 ];
 
