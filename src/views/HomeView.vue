@@ -33,18 +33,15 @@
         </div>
       </div>
     </div>
-    <div class="salon-component" v-if="displaySalon">
-      <SalonComponent></SalonComponent>
-    </div>
   </div>
 </template>
 
 <script>
-import SalonComponent from "@/components/home/SalonComponent.vue";
+import router from "@/router";
 
 export default {
   name: "GameConfig",
-  components: { SalonComponent },
+  components: {},
   props: {},
   data() {
     return {
@@ -53,7 +50,7 @@ export default {
   },
   methods: {
     goToGameSalon: function () {
-      this.displaySalon = true;
+      router.push("/Salon");
     },
   },
 };

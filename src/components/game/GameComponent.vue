@@ -39,6 +39,11 @@ export default {
       isAsker: "true",
       displayChat: false,
       selectedWords: [],
+      indexNumber: [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24,
+      ],
+      randomIndexNumber: [],
       redWords: [],
       blueWords: [],
       whiteWords: [],
@@ -47,21 +52,63 @@ export default {
       isWhite: false,
       isBlue: false,
       isBlack: false,
+      isAdmin: false,
     };
   },
-  methods: {
-    getRandomWord: function () {
-      this.selectedWords = [];
-
-      let words = wordsList;
-      const shuffledArray = words.sort(() => 0.5 - Math.random());
-      let i = 0;
-      while (this.selectedWords.length < 25) {
-        this.selectedWords.push(shuffledArray[i]);
-        i++;
-      }
+  sockets: {
+    receiveWordsList: function (data) {
+      this.selectedWords = data[0];
+      this.randomIndexNumber = data[1];
 
       this.generateAnswerGrid();
+    },
+
+    isRed: function (index) {
+      let card = document.getElementsByClassName("card" + index);
+      card[0].classList.add("isRed");
+    },
+    isBlack: function (index) {
+      let card = document.getElementsByClassName("card" + index);
+      card[0].classList.add("isBlack");
+    },
+    isBlue: function (index) {
+      let card = document.getElementsByClassName("card" + index);
+      card[0].classList.add("isBlue");
+    },
+    isWhite: function (index) {
+      let card = document.getElementsByClassName("card" + index);
+      card[0].classList.add("isWhite");
+    },
+  },
+  methods: {
+    checkAdmin: function () {
+      let admin = localStorage.getItem("isAdmin");
+      if (admin == "true") {
+        this.isAdmin = true;
+      }
+    },
+    getRandomWord: function () {
+      if (this.isAdmin == true) {
+        this.selectedWords = [];
+        let words = wordsList;
+        const shuffledArray = words.sort(() => 0.5 - Math.random());
+        let i = 0;
+        while (this.selectedWords.length < 25) {
+          this.selectedWords.push(shuffledArray[i]);
+          i++;
+        }
+
+        this.randomIndexNumber = this.indexNumber.sort(
+          () => 0.5 - Math.random()
+        );
+
+        this.$socket.emit(
+          "sendWordsList",
+          this.selectedWords,
+          this.randomIndexNumber
+        );
+        this.generateAnswerGrid();
+      }
     },
     generateAnswerGrid: function () {
       //pour reset les tableau si on veut générer une nouvelle grille de réponse
@@ -69,12 +116,9 @@ export default {
         (this.blueWords = []),
         (this.whiteWords = []),
         (this.blackWord = []);
-      let Number = [
-        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-        20, 21, 22, 23, 24,
-      ];
-      //je melange un tableau qui me servira à prendre des mot aléatoire en évitant les doublons
-      let randomNumber = Number.sort(() => 0.5 - Math.random());
+
+      let randomNumber = this.randomIndexNumber;
+
       let i = 0;
       while (this.redWords.length < 9) {
         this.redWords.push(this.selectedWords[randomNumber[i]]);
@@ -100,15 +144,19 @@ export default {
 
       if (this.redWords.find((Element) => Element == word) !== undefined) {
         card[0].classList.add("isRed");
+        this.$socket.emit("isRedAnswer", index);
       }
       if (this.blueWords.find((Element) => Element == word) !== undefined) {
         card[0].classList.add("isBlue");
+        this.$socket.emit("isBlueAnswer", index);
       }
       if (this.whiteWords.find((Element) => Element == word) !== undefined) {
         card[0].classList.add("isWhite");
+        this.$socket.emit("isWhiteAnswer", index);
       }
       if (this.blackWord.find((Element) => Element == word) !== undefined) {
         card[0].classList.add("isBlack");
+        this.$socket.emit("isBlackAnswer", index);
       }
     },
     setColorForGrid: function (word) {
@@ -125,13 +173,12 @@ export default {
         return "isBlackGrid";
       }
     },
-    getCursorPosition: function () {
-      document.onmousemove(console.log("la souris boueh"));
-    },
   },
-  mounted() {},
-  beforeMount() {
+  mounted() {
     this.getRandomWord();
+  },
+  beforeMount() {
+    this.checkAdmin();
   },
 };
 </script>

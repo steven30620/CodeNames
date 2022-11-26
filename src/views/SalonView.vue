@@ -22,6 +22,7 @@
     </div>
     <div class="adminArea">
       <button
+        v-if="isAdmin"
         @click="goToGame"
         class="btn btn-start btn-outline-light bg-dark btn-lg px-5"
         type="submit"
@@ -34,28 +35,40 @@
 
 <script>
 import router from "@/router";
+
 export default {
   name: "SalonView",
   data() {
     return {
       players: [],
+      isAdmin: false,
     };
   },
   methods: {
     goToGame: function () {
-      router.push("/game");
+      this.$socket.emit("start");
     },
     joined: function () {
       let localUserName = localStorage.getItem("user");
-      this.players = this.players.concat(localUserName);
-      this.$socket.emit("addNewUser", localUserName);
+      let isAdmin = localStorage.getItem("isAdmin");
+      if (isAdmin == "true") {
+        this.isAdmin = true;
+      }
+
+      let userInfo = {
+        name: localUserName,
+        admin: isAdmin,
+      };
+
+      this.$socket.emit("addNewUser", userInfo);
     },
   },
   sockets: {
     displayUser: function (data) {
-      console.log("display user     " + data);
       this.players = data;
-      console.log("je repasse dans le fornt");
+    },
+    startGame: function () {
+      router.push("/Game");
     },
   },
   beforeMount() {
